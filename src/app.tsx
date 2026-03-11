@@ -123,6 +123,26 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 			</OIDCBounder>
 		),
 		menuHeaderRender: undefined,
+		menuDataRender: (menuData: any[]) => {
+			const role = localStorage.getItem('app_role') || 'admin';
+			if (role === 'admin') return menuData;
+
+			const filterMenu = (data: any[]): any[] => {
+				return data
+					.map((item) => ({
+						...item,
+						children: item.children ? filterMenu(item.children) : undefined,
+					}))
+					.filter(
+						(item) =>
+							!item.path?.includes('staff') &&
+							!item.path?.includes('service') &&
+							!item.path?.includes('report')
+					);
+			};
+
+			return filterMenu(menuData);
+		},
 		...initialState?.settings,
 	};
 };

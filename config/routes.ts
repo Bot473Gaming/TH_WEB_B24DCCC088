@@ -1,4 +1,4 @@
-﻿export default [
+export default [
 	{
 		path: '/user',
 		layout: false,
@@ -35,6 +35,38 @@
 		name: 'RandomUser',
 		component: './RandomUser',
 		icon: 'ArrowsAltOutlined',
+	},
+	{
+		name: 'Hệ thống Booking',
+		path: '/booking',
+		icon: 'ScheduleOutlined',
+		routes: [
+			{
+				name: 'Quản lý nhân viên',
+				path: 'staff',
+				component: './Staff',
+			},
+			{
+				name: 'Dịch vụ',
+				path: 'service',
+				component: './Service',
+			},
+			{
+				name: 'Đặt lịch',
+				path: 'appointment',
+				component: './Appointment',
+			},
+			{
+				name: 'Đánh giá',
+				path: 'review',
+				component: './Review',
+			},
+			{
+				name: 'Báo cáo thông kê',
+				path: 'report',
+				component: './Report',
+			},
+		],
 	},
 
 	// DANH MUC HE THONG
