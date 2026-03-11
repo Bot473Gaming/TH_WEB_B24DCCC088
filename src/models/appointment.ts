@@ -25,14 +25,14 @@ export default () => {
 			);
 			
 			if (sameDayApps.length >= staffMember.dailyLimit) {
-				message.error(`Staff member has reached their daily limit of ${staffMember.dailyLimit} appointments.`);
+				message.error(`Nhân viên đã đạt đến giới hạn ${staffMember.dailyLimit} lịch hẹn trong ngày.`);
 				return false;
 			}
 			
 			// Validate conflict
 			const conflict = sameDayApps.find((a) => a.time === appointment.time);
 			if (conflict) {
-				message.error(`Staff member already has an appointment at ${appointment.time}.`);
+				message.error(`Nhân viên đã có lịch hẹn vào lúc ${appointment.time}.`);
 				return false;
 			}
 		}
@@ -40,7 +40,7 @@ export default () => {
 		const newData = [...data, appointment];
 		await saveAppointmentData(newData);
 		setData(newData);
-		message.success('Appointment booked successfully!');
+		message.success('Đặt lịch thành công');
 		return true;
 	};
 
@@ -48,7 +48,7 @@ export default () => {
 		const newData = data.map((item) => (item.id === appointment.id ? appointment : item));
 		await saveAppointmentData(newData);
 		setData(newData);
-		message.success('Appointment updated successfully!');
+		message.success('Cập nhật lịch thành công');
 		return true;
 	};
 
@@ -56,7 +56,7 @@ export default () => {
 		const newData = data.map((item) => (item.id === id ? { ...item, status } : item));
 		await saveAppointmentData(newData);
 		setData(newData);
-		message.success(`Status updated to ${status}`);
+		message.success(`Cập nhận trạng thái ${status}`);
 	};
 
 	const deleteAppointment = async (id: string) => {
