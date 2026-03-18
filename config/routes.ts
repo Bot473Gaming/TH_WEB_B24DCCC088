@@ -1,4 +1,4 @@
-﻿export default [
+export default [
 	{
 		path: '/user',
 		layout: false,
@@ -35,6 +35,41 @@
 		name: 'RandomUser',
 		component: './RandomUser',
 		icon: 'ArrowsAltOutlined',
+	},
+
+	// VAN BANG
+	{
+		name: 'Văn bằng',
+		path: '/van-bang',
+		icon: 'BookOutlined',
+		routes: [
+			{
+				name: 'Sổ văn bằng',
+				path: 'so-van-bang',
+				component: './SoVanBang',
+			},
+			{
+				name: 'Quyết định',
+				path: 'quyet-dinh',
+				component: './QuyetDinh',
+			},
+			{
+				name: 'Cấu hình biểu mẫu',
+				path: 'cau-hinh-bieu-mau',
+				component: './CauHinh',
+			},
+			{
+				name: 'Thông tin văn bằng',
+				path: 'thong-tin-van-bang',
+				component: './VanBang',
+			},
+		],
+	},
+	{
+		path: '/tra-cuu',
+		name: 'Tra cứu văn bằng',
+		component: './TraCuu',
+		icon: 'SearchOutlined',
 	},
 
 	// DANH MUC HE THONG

@@ -19,6 +19,11 @@ const useInitModel = <T,>(
 	ipService?: string,
 	initSort?: { [k in keyof T]?: 1 | -1 },
 	initFilter?: TFilter<T>[],
+	/**
+	 * Cho phép override service (vd: localStorage/mock) nhưng vẫn giữ backward-compatible.
+	 * Type để `any` nhằm không khóa chặt AxiosResponse shape.
+	 */
+	serviceOverride?: any,
 ) => {
 	const [danhSach, setDanhSach] = useState<T[]>([]);
 	const [record, setRecord] = useState<T>();
@@ -51,7 +56,7 @@ const useInitModel = <T,>(
 		postValidateImport,
 		getExportFields,
 		postExport,
-	} = useInitService(url, ipService);
+	} = serviceOverride ?? useInitService(url, ipService);
 
 	/**
 	 * Get Pageable Model
