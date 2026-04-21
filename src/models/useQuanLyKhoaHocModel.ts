@@ -37,17 +37,23 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 	};
 
 	/**
-	 * Get Pageable Model (Simulated)
-	 * @param paramCondition Filter condition
-	 * @param paramPage Current page
-	 * @param paramLimit Records per page
+	 * Get Pageable Model
+	 * @param params Object containing condition, page, limit, etc.
 	 */
-	const getModel = async (paramCondition?: Partial<T>, paramPage?: number, paramLimit?: number) => {
+	const getModel = async (params?: {
+		condition?: Partial<T>;
+		page?: number;
+		limit?: number;
+		filters?: TFilter<T>[];
+		sort?: any;
+	}) => {
 		setLoading(true);
 		try {
-			const curPage = paramPage || page;
-			const curLimit = paramLimit || limit;
-			const curCondition = paramCondition || condition;
+			const curPage = params?.page || page;
+			const curLimit = params?.limit || limit;
+			const curCondition = params?.condition || condition;
+			const curFilters = params?.filters || filters;
+			const curSort = params?.sort || sort;
 
 			let data = getFromStorage();
 
@@ -80,8 +86,8 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 			}
 
 			// Apply table filters (if any)
-			if (filters && filters.length > 0) {
-				filters.forEach((filter) => {
+			if (curFilters && curFilters.length > 0) {
+				curFilters.forEach((filter) => {
 					if (filter.active !== false && filter.field && filter.values && filter.values.length > 0) {
 						if (filter.field === 'tenKhoaHoc') {
 							data = data.filter((item) =>
@@ -97,9 +103,9 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 			}
 
 			// Apply sort (if any)
-			if (sort) {
-				const sortKey = Object.keys(sort)[0] as keyof T;
-				const sortOrder = sort[sortKey];
+			if (curSort) {
+				const sortKey = Object.keys(curSort)[0] as keyof T;
+				const sortOrder = curSort[sortKey];
 				if (sortKey && sortOrder) {
 					data.sort((a, b) => {
 						if (a[sortKey] < b[sortKey]) return sortOrder === 1 ? -1 : 1;
@@ -128,7 +134,6 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		setLoading(true);
 		try {
 			const data = getFromStorage();
-			// Check duplicate name (validating tenKhoaHoc)
 			if (data.some((item) => item.tenKhoaHoc === payload.tenKhoaHoc)) {
 				message.error('Tên khóa học đã tồn tại!');
 				return Promise.reject('Duplicate name');
@@ -153,7 +158,6 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		setLoading(true);
 		try {
 			const data = getFromStorage();
-			// Check duplicate name except current record
 			if (data.some((item) => item.tenKhoaHoc === payload.tenKhoaHoc && item._id !== id)) {
 				message.error('Tên khóa học đã tồn tại!');
 				return Promise.reject('Duplicate name');
@@ -181,15 +185,11 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		setLoading(true);
 		try {
 			const data = getFromStorage();
-			const recordToDelete = data.find((item) => item._id === id);
-
-			// Calculate dynamic student count for this course
 			const hocVienDataRaw = localStorage.getItem('QUAN_LY_HOC_VIEN_DATA');
 			const hocVienData: any[] = hocVienDataRaw ? JSON.parse(hocVienDataRaw) : [];
 			const currentStudentCount = hocVienData.filter((hv) => hv.idKhoaHoc === id).length;
 
-			// Delete condition (check soLuongHocVien === 0)
-			if (recordToDelete && currentStudentCount > 0) {
+			if (currentStudentCount > 0) {
 				message.error('Không thể xóa khóa học đã có học viên!');
 				return Promise.reject('Course has students');
 			}
@@ -197,28 +197,16 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 			const newData = data.filter((item) => item._id !== id);
 			saveToStorage(newData);
 			message.success('Xóa thành công');
-
-			const maxPage = Math.ceil((total - 1) / limit) || 1;
-			let newPage = page;
-			if (newPage > maxPage) {
-				newPage = maxPage;
-				setPage(newPage);
-			}
-
-			getModel(undefined, newPage);
+			getModel();
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	const deleteManyModel = async (ids: string[]) => {
-		// Mock implementation just to satisfy TableBase
 		return Promise.resolve();
 	};
 
-	/**
-	 * Get All Model (Without pagination)
-	 */
 	const getAllModel = async () => {
 		setLoading(true);
 		try {
