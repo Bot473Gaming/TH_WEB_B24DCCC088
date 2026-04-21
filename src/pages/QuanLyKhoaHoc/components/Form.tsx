@@ -74,15 +74,6 @@ const FormKhoaHoc = () => {
 				</Form.Item>
 
 				<Form.Item
-					name='soLuongHocVien'
-					label='Số lượng học viên'
-					rules={[...rules.required]}
-					initialValue={0}
-				>
-					<InputNumber min={0} style={{ width: '100%' }} placeholder='Nhập số lượng học viên' />
-				</Form.Item>
-
-				<Form.Item
 					name='trangThai'
 					label='Trạng thái'
 					rules={[...rules.required]}

@@ -51,6 +51,21 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 
 			let data = getFromStorage();
 
+			// Calculate student count dynamically from HocVien data
+			const hocVienDataRaw = localStorage.getItem('QUAN_LY_HOC_VIEN_DATA');
+			const hocVienData: any[] = hocVienDataRaw ? JSON.parse(hocVienDataRaw) : [];
+			const studentCounts = hocVienData.reduce((acc: Record<string, number>, curr) => {
+				if (curr.idKhoaHoc) {
+					acc[curr.idKhoaHoc] = (acc[curr.idKhoaHoc] || 0) + 1;
+				}
+				return acc;
+			}, {});
+
+			data = data.map((course) => ({
+				...course,
+				soLuongHocVien: studentCounts[course._id] || 0,
+			}));
+
 			// Apply Search & Filters from condition
 			if (curCondition?.tenKhoaHoc) {
 				data = data.filter((item) =>
@@ -167,8 +182,14 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		try {
 			const data = getFromStorage();
 			const recordToDelete = data.find((item) => item._id === id);
+
+			// Calculate dynamic student count for this course
+			const hocVienDataRaw = localStorage.getItem('QUAN_LY_HOC_VIEN_DATA');
+			const hocVienData: any[] = hocVienDataRaw ? JSON.parse(hocVienDataRaw) : [];
+			const currentStudentCount = hocVienData.filter((hv) => hv.idKhoaHoc === id).length;
+
 			// Delete condition (check soLuongHocVien === 0)
-			if (recordToDelete && recordToDelete.soLuongHocVien > 0) {
+			if (recordToDelete && currentStudentCount > 0) {
 				message.error('Không thể xóa khóa học đã có học viên!');
 				return Promise.reject('Course has students');
 			}
