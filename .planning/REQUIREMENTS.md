@@ -16,6 +16,10 @@
   - [x] Chỉ cho phép xóa khi Số lượng học viên = 0.
   - [x] Yêu cầu xác nhận (confirm) trước khi xóa.
   - [x] Có thông báo thao tác thành công/thất bại.
+- [ ] **Điều hướng & Thống kê (Phase 3):**
+  - [ ] Phân chia menu 'Quản lý khóa học' thành submenu 'Danh sách' và 'Thống kê' (MENU-01).
+  - [ ] Hiển thị biểu đồ Donut thống kê tỉ lệ trạng thái khóa học (STAT-01).
+  - [ ] Hiển thị biểu đồ Cột thống kê số lượng học viên theo khóa học (STAT-02).
 
 ## 2. Yêu cầu kỹ thuật (Technical Requirements)
 - [x] **Cấu trúc thư mục:** Phải tách riêng biệt `pages`, `models` và `components`.
@@ -23,5 +27,5 @@
   - [x] Viết custom model (`useQuanLyKhoaHocModel.ts`) áp dụng **generics type**.
   - [x] Toàn bộ logic lưu/đọc dữ liệu (CRUD) thao tác trực tiếp với `localStorage`.
 - [x] **Components:**
-  - [x] Sử dụng các components sẵn có: `TableBase`, `TinyEditor`.
+  - [x] Sử dụng các components sẵn có: `TableBase`, `TinyEditor`, `ApexCharts`.
   - [x] Tái sử dụng code hợp lý (Clean Code).
