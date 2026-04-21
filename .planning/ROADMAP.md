@@ -10,4 +10,4 @@
 
 ### Phase 1 Plans:
 - [x] 01-01-PLAN.md — Setup Types & Constants
-- [ ] 01-02-PLAN.md — Implement useQuanLyKhoaHocModel
+- [x] 01-02-PLAN.md — Implement useQuanLyKhoaHocModel
