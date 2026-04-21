@@ -10,6 +10,11 @@ import FormKhoaHoc from './components/Form';
 
 const QuanLyKhoaHocPage = () => {
 	const { deleteModel, handleEdit } = useModel('useQuanLyKhoaHocModel');
+	const { danhSach: danhSachGiangVien, getAllModel: getAllGiangVien } = useModel('useQuanLyGiangVienModel');
+
+	React.useEffect(() => {
+		getAllGiangVien();
+	}, []);
 
 	const columns: IColumn<KhoaHoc.IRecord>[] = [
 		{
@@ -24,12 +29,12 @@ const QuanLyKhoaHocPage = () => {
 			dataIndex: 'idGiangVien',
 			width: 150,
 			filterType: 'select',
-			options: DANH_SACH_GIANG_VIEN.map((item) => ({
+			options: danhSachGiangVien.map((item) => ({
 				value: item._id,
 				label: item.hoTen,
 			})),
 			render: (id: string) => {
-				const giangVien = DANH_SACH_GIANG_VIEN.find((item) => item._id === id);
+				const giangVien = danhSachGiangVien.find((item) => item._id === id);
 				return giangVien ? giangVien.hoTen : 'Chưa xác định';
 			},
 		},

@@ -51,6 +51,11 @@
 				component: './QuanLyKhoaHoc/DanhSach',
 			},
 			{
+				name: 'GiangVien',
+				path: 'giang-vien',
+				component: './QuanLyKhoaHoc/GiangVien',
+			},
+			{
 				name: 'ThongKe',
 				path: 'thong-ke',
 				component: './QuanLyKhoaHoc/ThongKe',

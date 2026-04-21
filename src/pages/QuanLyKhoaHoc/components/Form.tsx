@@ -63,7 +63,7 @@ const FormKhoaHoc = () => {
 					rules={[...rules.required]}
 				>
 					<Select placeholder='Chọn giảng viên'>
-						{DANH_SACH_GIANG_VIEN.map((item) => (
+						{danhSachGiangVien.map((item) => (
 							<Select.Option key={item._id} value={item._id}>
 								{item.hoTen}
 							</Select.Option>
@@ -103,6 +103,16 @@ const FormKhoaHoc = () => {
 						Lưu
 					</Button>
 					<Button key='back' onClick={onCancel} style={{ marginLeft: 8 }}>
+						Hủy
+					</Button>
+				</div>
+			</Form>
+		</Card>
+	);
+};
+
+export default FormKhoaHoc;
+rginLeft: 8 }}>
 						Hủy
 					</Button>
 				</div>
