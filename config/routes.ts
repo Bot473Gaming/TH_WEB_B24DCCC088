@@ -40,7 +40,22 @@
 		name: 'QuanLyKhoaHoc',
 		path: '/quan-ly-khoa-hoc',
 		icon: 'BookOutlined',
-		component: './QuanLyKhoaHoc',
+		routes: [
+			{
+				path: '/quan-ly-khoa-hoc',
+				redirect: '/quan-ly-khoa-hoc/danh-sach',
+			},
+			{
+				name: 'DanhSach',
+				path: 'danh-sach',
+				component: './QuanLyKhoaHoc/DanhSach',
+			},
+			{
+				name: 'ThongKe',
+				path: 'thong-ke',
+				component: './QuanLyKhoaHoc/ThongKe',
+			},
+		],
 	},
 
 	// DANH MUC HE THONG
