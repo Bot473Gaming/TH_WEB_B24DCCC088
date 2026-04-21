@@ -1,5 +1,5 @@
 import TinyEditor from '@/components/TinyEditor';
-import { DANH_SACH_GIANG_VIEN, TRANG_THAI_LABEL } from '@/services/QuanLyKhoaHoc/constant';
+import { TRANG_THAI_LABEL } from '@/services/QuanLyKhoaHoc/constant';
 import type { KhoaHoc } from '@/services/QuanLyKhoaHoc/typing';
 import rules from '@/utils/rules';
 import { Button, Card, Form, Input, InputNumber, Select } from 'antd';
@@ -11,9 +11,11 @@ const FormKhoaHoc = () => {
 	const { record, edit, visibleForm, setVisibleForm, postModel, putModel, loading } = useModel(
 		'useQuanLyKhoaHocModel',
 	);
+	const { danhSach: danhSachGiangVien, getAllModel: getAllGiangVien } = useModel('useQuanLyGiangVienModel');
 
 	useEffect(() => {
 		if (visibleForm) {
+			getAllGiangVien();
 			if (edit && record) {
 				form.setFieldsValue(record);
 			} else {
@@ -103,16 +105,6 @@ const FormKhoaHoc = () => {
 						Lưu
 					</Button>
 					<Button key='back' onClick={onCancel} style={{ marginLeft: 8 }}>
-						Hủy
-					</Button>
-				</div>
-			</Form>
-		</Card>
-	);
-};
-
-export default FormKhoaHoc;
-rginLeft: 8 }}>
 						Hủy
 					</Button>
 				</div>
