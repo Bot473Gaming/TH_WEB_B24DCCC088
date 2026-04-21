@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { useState } from 'react';
 import type { KhoaHoc } from '@/services/QuanLyKhoaHoc/typing';
+import { type TFilter } from '@/components/Table/typing';
 
 const LOCAL_STORAGE_KEY = 'QUAN_LY_KHOA_HOC_DATA';
 
@@ -10,10 +11,15 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 	const [total, setTotal] = useState<number>(0);
 	const [visibleForm, setVisibleForm] = useState<boolean>(false);
 	const [edit, setEdit] = useState<boolean>(false);
+	const [isView, setIsView] = useState<boolean>(false);
 	const [record, setRecord] = useState<T | undefined>(undefined);
 	const [page, setPage] = useState<number>(1);
 	const [limit, setLimit] = useState<number>(10);
 	const [condition, setCondition] = useState<Partial<T>>({});
+	const [filters, setFilters] = useState<TFilter<T>[]>([]);
+	const [initFilter] = useState<TFilter<T>[]>([]);
+	const [sort, setSort] = useState<any>(undefined);
+	const [selectedIds, setSelectedIds] = useState<string[] | undefined>(undefined);
 
 	/**
 	 * Helper to read from localStorage
@@ -45,21 +51,47 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 
 			let data = getFromStorage();
 
-			// Search by tenKhoaHoc
+			// Apply Search & Filters from condition
 			if (curCondition?.tenKhoaHoc) {
 				data = data.filter((item) =>
 					item.tenKhoaHoc.toLowerCase().includes(curCondition.tenKhoaHoc!.toLowerCase()),
 				);
 			}
-
-			// Filter by idGiangVien
 			if (curCondition?.idGiangVien) {
 				data = data.filter((item) => item.idGiangVien === curCondition.idGiangVien);
 			}
-
-			// Filter by trangThai
 			if (curCondition?.trangThai) {
 				data = data.filter((item) => item.trangThai === curCondition.trangThai);
+			}
+
+			// Apply table filters (if any)
+			if (filters && filters.length > 0) {
+				filters.forEach((filter) => {
+					if (filter.active !== false && filter.field && filter.values && filter.values.length > 0) {
+						if (filter.field === 'tenKhoaHoc') {
+							data = data.filter((item) =>
+								item.tenKhoaHoc.toLowerCase().includes(String(filter.values[0]).toLowerCase()),
+							);
+						} else if (filter.field === 'idGiangVien') {
+							data = data.filter((item) => filter.values.includes(item.idGiangVien));
+						} else if (filter.field === 'trangThai') {
+							data = data.filter((item) => filter.values.includes(item.trangThai));
+						}
+					}
+				});
+			}
+
+			// Apply sort (if any)
+			if (sort) {
+				const sortKey = Object.keys(sort)[0] as keyof T;
+				const sortOrder = sort[sortKey];
+				if (sortKey && sortOrder) {
+					data.sort((a, b) => {
+						if (a[sortKey] < b[sortKey]) return sortOrder === 1 ? -1 : 1;
+						if (a[sortKey] > b[sortKey]) return sortOrder === 1 ? 1 : -1;
+						return 0;
+					});
+				}
 			}
 
 			setTotal(data.length);
@@ -158,15 +190,22 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		}
 	};
 
+	const deleteManyModel = async (ids: string[]) => {
+		// Mock implementation just to satisfy TableBase
+		return Promise.resolve();
+	};
+
 	const handleEdit = (rec?: T) => {
 		if (rec) setRecord(rec);
 		setEdit(true);
+		setIsView(false);
 		setVisibleForm(true);
 	};
 
 	const handleView = (rec?: T) => {
 		if (rec) setRecord(rec);
 		setEdit(false);
+		setIsView(true);
 		setVisibleForm(true);
 	};
 
@@ -178,6 +217,8 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		setVisibleForm,
 		edit,
 		setEdit,
+		isView,
+		setIsView,
 		record,
 		setRecord,
 		page,
@@ -186,10 +227,18 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		setLimit,
 		condition,
 		setCondition,
+		filters,
+		setFilters,
+		initFilter,
+		sort,
+		setSort,
+		selectedIds,
+		setSelectedIds,
 		getModel,
 		postModel,
 		putModel,
 		deleteModel,
+		deleteManyModel,
 		handleEdit,
 		handleView,
 	};
