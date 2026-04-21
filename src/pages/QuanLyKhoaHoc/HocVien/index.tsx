@@ -38,7 +38,7 @@ const QuanLyHocVienPage = () => {
 			dataIndex: 'idKhoaHoc',
 			width: 200,
 			filterType: 'select',
-			options: danhSachKhoaHoc.map((item) => ({
+			filterData: danhSachKhoaHoc.map((item) => ({
 				value: item._id,
 				label: item.tenKhoaHoc,
 			})),

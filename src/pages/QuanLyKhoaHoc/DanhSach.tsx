@@ -29,7 +29,7 @@ const QuanLyKhoaHocPage = () => {
 			dataIndex: 'idGiangVien',
 			width: 150,
 			filterType: 'select',
-			options: danhSachGiangVien.map((item) => ({
+			filterData: danhSachGiangVien.map((item) => ({
 				value: item._id,
 				label: item.hoTen,
 			})),
@@ -51,7 +51,7 @@ const QuanLyKhoaHocPage = () => {
 			width: 150,
 			align: 'center',
 			filterType: 'select',
-			options: Object.entries(TRANG_THAI_LABEL).map(([value, label]) => ({
+			filterData: Object.entries(TRANG_THAI_LABEL).map(([value, label]) => ({
 				value,
 				label,
 			})),
@@ -90,12 +90,7 @@ const QuanLyKhoaHocPage = () => {
 							placement='topLeft'
 							disabled={record.soLuongHocVien > 0}
 						>
-							<Button
-								danger
-								type='link'
-								icon={<DeleteOutlined />}
-								disabled={record.soLuongHocVien > 0}
-							/>
+							<Button danger type='link' icon={<DeleteOutlined />} disabled={record.soLuongHocVien > 0} />
 						</Popconfirm>
 					</Tooltip>
 				</>
