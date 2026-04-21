@@ -11,3 +11,6 @@
 ### Phase 1 Plans:
 - [x] 01-01-PLAN.md — Setup Types & Constants
 - [x] 01-02-PLAN.md — Implement useQuanLyKhoaHocModel
+
+### Phase 2 Plans:
+- [ ] 02-01-PLAN.md — Build Course List and Course Form
