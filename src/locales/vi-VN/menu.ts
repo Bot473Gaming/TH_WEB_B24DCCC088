@@ -8,6 +8,8 @@ export default {
 
 	'menu.QuanLyKhoaHoc': 'Quản lý khóa học',
 	'menu.QuanLyKhoaHoc.DanhSach': 'Danh sách',
+	'menu.QuanLyKhoaHoc.GiangVien': 'Giảng viên',
+	'menu.QuanLyKhoaHoc.HocVien': 'Học viên',
 	'menu.QuanLyKhoaHoc.ThongKe': 'Thống kê',
 
 	'menu.DanhMuc': 'Danh mục',
