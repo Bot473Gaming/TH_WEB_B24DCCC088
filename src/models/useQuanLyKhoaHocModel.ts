@@ -216,6 +216,20 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		return Promise.resolve();
 	};
 
+	/**
+	 * Get All Model (Without pagination)
+	 */
+	const getAllModel = async () => {
+		setLoading(true);
+		try {
+			const data = getFromStorage();
+			setDanhSach(data as T[]);
+			return data;
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	const handleEdit = (rec?: T) => {
 		if (rec) setRecord(rec);
 		setEdit(true);
@@ -256,6 +270,7 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 		selectedIds,
 		setSelectedIds,
 		getModel,
+		getAllModel,
 		postModel,
 		putModel,
 		deleteModel,
