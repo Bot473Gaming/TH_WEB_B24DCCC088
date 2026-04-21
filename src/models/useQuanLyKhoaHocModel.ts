@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import { useState } from 'react';
+import type { KhoaHoc } from '@/services/QuanLyKhoaHoc/typing';
 
 const LOCAL_STORAGE_KEY = 'QUAN_LY_KHOA_HOC_DATA';
 
@@ -49,6 +50,16 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 				data = data.filter((item) =>
 					item.tenKhoaHoc.toLowerCase().includes(curCondition.tenKhoaHoc!.toLowerCase()),
 				);
+			}
+
+			// Filter by idGiangVien
+			if (curCondition?.idGiangVien) {
+				data = data.filter((item) => item.idGiangVien === curCondition.idGiangVien);
+			}
+
+			// Filter by trangThai
+			if (curCondition?.trangThai) {
+				data = data.filter((item) => item.trangThai === curCondition.trangThai);
 			}
 
 			setTotal(data.length);
