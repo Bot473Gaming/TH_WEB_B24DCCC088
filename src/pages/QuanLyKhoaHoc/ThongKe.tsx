@@ -12,7 +12,7 @@ const ThongKe = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const data = await getModel({}, 1, 1000);
+			const data = await getModel({ condition: {}, page: 1, limit: 1000 });
 			if (data) {
 				setAllData(data as KhoaHoc.IRecord[]);
 			}
