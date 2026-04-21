@@ -13,4 +13,5 @@
 - [x] 01-02-PLAN.md — Implement useQuanLyKhoaHocModel
 
 ### Phase 2 Plans:
-- [ ] 02-01-PLAN.md — Build Course List and Course Form
+- [x] 02-01-PLAN.md — Build Course List and Course Form (Completed)
+
