@@ -9,8 +9,8 @@ import { useModel } from 'umi';
 import FormKhoaHoc from './components/Form';
 
 const QuanLyKhoaHocPage = () => {
-	const { deleteModel, handleEdit } = useModel('useQuanLyKhoaHocModel');
-	const { danhSach: danhSachGiangVien, getAllModel: getAllGiangVien } = useModel('useQuanLyGiangVienModel');
+	const { deleteModel, handleEdit } = useModel('QuanLyKhoaHocModel');
+	const { danhSach: danhSachGiangVien, getAllModel: getAllGiangVien } = useModel('QuanLyGiangVienModel');
 
 	React.useEffect(() => {
 		getAllGiangVien();
@@ -105,7 +105,7 @@ const QuanLyKhoaHocPage = () => {
 
 	return (
 		<TableBase
-			modelName='useQuanLyKhoaHocModel'
+			modelName='QuanLyKhoaHocModel'
 			title='Quản lý khóa học'
 			Form={FormKhoaHoc}
 			columns={columns}

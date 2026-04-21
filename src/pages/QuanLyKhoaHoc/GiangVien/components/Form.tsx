@@ -6,7 +6,7 @@ import { useModel } from 'umi';
 const FormGiangVien = () => {
 	const [form] = Form.useForm();
 	const { record, edit, visibleForm, setVisibleForm, postModel, putModel, loading } = useModel(
-		'useQuanLyGiangVienModel',
+		'QuanLyGiangVienModel',
 	);
 
 	useEffect(() => {

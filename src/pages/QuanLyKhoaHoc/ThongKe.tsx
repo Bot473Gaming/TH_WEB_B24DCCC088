@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { KhoaHoc } from '@/services/QuanLyKhoaHoc/typing';
 
 const ThongKe = () => {
-	const { getModel } = useModel('useQuanLyKhoaHocModel');
+	const { getModel } = useModel('QuanLyKhoaHocModel');
 	const [allData, setAllData] = useState<KhoaHoc.IRecord[]>([]);
 
 	useEffect(() => {

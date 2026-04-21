@@ -5,10 +5,10 @@ import { Button, Popconfirm, Tooltip } from 'antd';
 import React from 'react';
 import { useModel } from 'umi';
 import FormGiangVien from './components/Form';
-import { IGiangVien } from '@/models/useQuanLyGiangVienModel';
+import { IGiangVien } from '@/models/QuanLyGiangVienModel';
 
 const QuanLyGiangVienPage = () => {
-	const { deleteModel, handleEdit } = useModel('useQuanLyGiangVienModel');
+	const { deleteModel, handleEdit } = useModel('QuanLyGiangVienModel');
 
 	const columns: IColumn<IGiangVien>[] = [
 		{
@@ -63,7 +63,7 @@ const QuanLyGiangVienPage = () => {
 
 	return (
 		<TableBase
-			modelName='useQuanLyGiangVienModel'
+			modelName='QuanLyGiangVienModel'
 			title='Quản lý giảng viên'
 			Form={FormGiangVien}
 			columns={columns}

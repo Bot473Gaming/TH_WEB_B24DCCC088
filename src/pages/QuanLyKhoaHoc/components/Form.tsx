@@ -9,9 +9,9 @@ import { useModel } from 'umi';
 const FormKhoaHoc = () => {
 	const [form] = Form.useForm();
 	const { record, edit, visibleForm, setVisibleForm, postModel, putModel, loading } = useModel(
-		'useQuanLyKhoaHocModel',
+		'QuanLyKhoaHocModel',
 	);
-	const { danhSach: danhSachGiangVien, getAllModel: getAllGiangVien } = useModel('useQuanLyGiangVienModel');
+	const { danhSach: danhSachGiangVien, getAllModel: getAllGiangVien } = useModel('QuanLyGiangVienModel');
 
 	useEffect(() => {
 		if (visibleForm) {

@@ -14,4 +14,13 @@ declare module KhoaHoc {
 		_id: string;
 		hoTen: string;
 	}
+
+	export interface IHocVien {
+		_id: string;
+		maHocVien: string;
+		hoTen: string;
+		email: string;
+		soDienThoai?: string;
+		idKhoaHoc: string;
+	}
 }

@@ -1,11 +1,18 @@
 import { message } from 'antd';
 import { useState } from 'react';
 import { type TFilter } from '@/components/Table/typing';
-import type { KhoaHoc } from '@/services/QuanLyKhoaHoc/typing';
 
-const LOCAL_STORAGE_KEY = 'QUAN_LY_HOC_VIEN_DATA';
+const LOCAL_STORAGE_KEY = 'QUAN_LY_GIANG_VIEN_DATA';
 
-const useQuanLyHocVienModel = <T extends KhoaHoc.IHocVien>() => {
+export interface IGiangVien {
+	_id: string;
+	maGiangVien: string;
+	hoTen: string;
+	email: string;
+	soDienThoai?: string;
+}
+
+const QuanLyGiangVienModel = <T extends IGiangVien>() => {
 	const [danhSach, setDanhSach] = useState<T[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [total, setTotal] = useState<number>(0);
@@ -55,10 +62,6 @@ const useQuanLyHocVienModel = <T extends KhoaHoc.IHocVien>() => {
 				);
 			}
 
-			if (curCondition?.idKhoaHoc) {
-				data = data.filter((item) => item.idKhoaHoc === curCondition.idKhoaHoc);
-			}
-
 			setTotal(data.length);
 
 			// Pagination
@@ -92,15 +95,15 @@ const useQuanLyHocVienModel = <T extends KhoaHoc.IHocVien>() => {
 		setLoading(true);
 		try {
 			const data = getFromStorage();
-			if (data.some((item) => item.maHocVien === payload.maHocVien)) {
-				message.error('Mã học viên đã tồn tại!');
+			if (data.some((item) => item.maGiangVien === payload.maGiangVien)) {
+				message.error('Mã giảng viên đã tồn tại!');
 				return Promise.reject('Duplicate code');
 			}
 
 			const newRecord = { ...payload, _id: Date.now().toString() } as T;
 			data.push(newRecord);
 			saveToStorage(data);
-			message.success('Thêm mới học viên thành công');
+			message.success('Thêm mới giảng viên thành công');
 			setVisibleForm(false);
 			getModel();
 			return newRecord;
@@ -120,7 +123,7 @@ const useQuanLyHocVienModel = <T extends KhoaHoc.IHocVien>() => {
 			if (index !== -1) {
 				data[index] = { ...data[index], ...payload, _id: id } as T;
 				saveToStorage(data);
-				message.success('Cập nhật học viên thành công');
+				message.success('Cập nhật giảng viên thành công');
 				setVisibleForm(false);
 				getModel();
 				return data[index];
@@ -140,7 +143,7 @@ const useQuanLyHocVienModel = <T extends KhoaHoc.IHocVien>() => {
 			const data = getFromStorage();
 			const newData = data.filter((item) => item._id !== id);
 			saveToStorage(newData);
-			message.success('Xóa học viên thành công');
+			message.success('Xóa giảng viên thành công');
 			getModel();
 		} finally {
 			setLoading(false);
@@ -196,4 +199,4 @@ const useQuanLyHocVienModel = <T extends KhoaHoc.IHocVien>() => {
 	};
 };
 
-export default useQuanLyHocVienModel;
+export default QuanLyGiangVienModel;

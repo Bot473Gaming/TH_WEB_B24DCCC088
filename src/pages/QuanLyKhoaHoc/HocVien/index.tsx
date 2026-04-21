@@ -8,8 +8,8 @@ import FormHocVien from './components/Form';
 import type { KhoaHoc } from '@/services/QuanLyKhoaHoc/typing';
 
 const QuanLyHocVienPage = () => {
-	const { deleteModel, handleEdit } = useModel('useQuanLyHocVienModel');
-	const { danhSach: danhSachKhoaHoc, getAllModel: getAllKhoaHoc } = useModel('useQuanLyKhoaHocModel');
+	const { deleteModel, handleEdit } = useModel('QuanLyHocVienModel');
+	const { danhSach: danhSachKhoaHoc, getAllModel: getAllKhoaHoc } = useModel('QuanLyKhoaHocModel');
 
 	React.useEffect(() => {
 		getAllKhoaHoc();
@@ -77,7 +77,7 @@ const QuanLyHocVienPage = () => {
 
 	return (
 		<TableBase
-			modelName='useQuanLyHocVienModel'
+			modelName='QuanLyHocVienModel'
 			title='Quản lý học viên'
 			Form={FormHocVien}
 			columns={columns}

@@ -5,7 +5,7 @@ import { type TFilter } from '@/components/Table/typing';
 
 const LOCAL_STORAGE_KEY = 'QUAN_LY_KHOA_HOC_DATA';
 
-const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
+const QuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 	const [danhSach, setDanhSach] = useState<T[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [total, setTotal] = useState<number>(0);
@@ -268,4 +268,4 @@ const useQuanLyKhoaHocModel = <T extends KhoaHoc.IRecord>() => {
 	};
 };
 
-export default useQuanLyKhoaHocModel;
+export default QuanLyKhoaHocModel;
